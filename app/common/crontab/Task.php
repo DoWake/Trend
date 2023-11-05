@@ -28,7 +28,12 @@ class Task
         } else {
           $func = $task_data['action'];
           $action_result = $action->$func();
-          if ($action_result['code'] == 1) {
+          if (empty($action_result)) {
+            $task_result = [
+              'code' => -1,
+              'msg' => '结果为空'
+            ];
+          } else if ($action_result['code'] == 1) {
             $task_result = [
               'code' => 1,
               'msg' => '执行成功'
@@ -36,14 +41,14 @@ class Task
           } else {
             $task_result = [
               'code' => -1,
-              'msg' => $current_time . '【' . $action_result['msg'] . '】'
+              'msg' => $action_result['msg']
             ];
           }
         }
       } catch (\Throwable $th) {
         $task_result = [
           'code' => -1,
-          'msg' => $current_time . '【' . $th->getMessage() . '】'
+          'msg' => '【' . $th->getFile() . '】【' . $th->getLine() . '】【' . $th->getMessage() . '】'
         ];
       } finally {
         $connection->send(json_encode($task_result));
