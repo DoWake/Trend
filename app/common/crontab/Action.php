@@ -3,6 +3,7 @@
 namespace app\common\crontab;
 
 use app\common\hotlist\Baidu;
+use app\common\hotlist\Toutiao;
 use think\facade\Cache;
 use think\facade\Db;
 
@@ -21,6 +22,44 @@ class Action
     $result = Baidu::getRealtime();
     if ($result['code'] != 1) {
       $result = Baidu::getRealtime();
+    }
+    $action = __FUNCTION__;
+    $latest_data = $result['data'];
+    $cache_data = Cache::get($action);
+    if ($cache_data && $cache_data == json_encode($latest_data)) {
+      $res = [
+        'code' => 1,
+        'msg' => '数据一致'
+      ];
+      return $res;
+    } else {
+      // 刷新缓存
+      Cache::set($action, json_encode($latest_data), 3600);
+      // 记录到数据库
+      Db::table('hotlist')
+        ->where('action', $action)
+        ->update([
+          'data' => json_encode($latest_data, JSON_UNESCAPED_UNICODE),
+          'updated_at' => date('Y-m-d H:i:s')
+        ]);
+      $res = [
+        'code' => 1,
+        'msg' => '执行成功'
+      ];
+      return $res;
+    }
+  }
+
+  /**
+   * 执行获取头条热榜任务
+   *
+   * @return array
+   */
+  public function getToutiaoHotBoard()
+  {
+    $result = Toutiao::getHotBoard();
+    if ($result['code'] != 1) {
+      $result = Toutiao::getHotBoard();
     }
     $action = __FUNCTION__;
     $latest_data = $result['data'];
