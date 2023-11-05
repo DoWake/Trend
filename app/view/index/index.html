@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="热搜,热搜榜,热点,热搜指数,热度,实时热点,Ytool" name="Keywords">
+    <meta name="description" content="本应用提供全网多平台的热搜榜单，帮助您轻松掌握新鲜事、简讯、热点和热度趋势。">
+    <link rel="shortcut icon" href="/favicon.svg">
+    <link rel="stylesheet" href="/static/css/index.css" />
+    <title>热搜指数</title>
+  </head>
+  <body>
+    <div class="container">
+      <div id="chart" class="chart">加载中</div>
+      <div class="board">
+        {if isset($getWeiboHotSearch)}
+        <div id="getWeiboHotSearch" title="更新时间:{$getWeiboHotSearch['updated_at']}" class="board-container">
+          <div class="board-head">
+            <img src="/static/image/weibo.ico" alt="微博" />
+            <h3>微博</h3>
+            <span>热搜榜</span>
+          </div>
+          <div class="board-content">
+            {foreach $getWeiboHotSearch['list'] as $value}
+            <a title="热度：{$value.score}" class="board-item" href="{$value.url}" target="_blank">
+              <div class="order">
+                <span>{$value.rank}</span>
+              </div>
+              <div class="title">
+                <span class="word">{$value.title}</span>
+                {switch $value.label}
+                  {case 热}<span class="tag tag-hot">热</span>{/case}
+                  {case 新}<span class="tag tag-new">新</span>{/case}
+                  {case 爆}<span class="tag tag-boom">爆</span>{/case}
+                  {case }{/case}
+                  {default /}<span class="tag tag-other">{$value.label}</span>
+                {/switch}
+              </div>
+              <div class="score">{$value.score}</div>
+            </a>
+            {/foreach}
+          </div>
+        </div>
+        {/if}
+
+        {if isset($getToutiaoHotBoard)}
+        <div id="getToutiaoHotBoard" title="更新时间:{$getToutiaoHotBoard['updated_at']}" class="board-container">
+          <div class="board-head">
+            <img src="/static/image/toutiao.ico" alt="今日头条" />
+            <h3>今日头条</h3>
+            <span>头条热榜</span>
+          </div>
+          <div class="board-content">
+            {foreach $getToutiaoHotBoard['list'] as $value}
+            <a title="热度：{$value.score}" class="board-item" href="{$value.url}" target="_blank">
+              <div class="order">
+                <span>{$value.rank}</span>
+              </div>
+              <div class="title">
+                <span class="word">{$value.title}</span>
+                {switch $value.label}
+                  {case 热}<span class="tag tag-hot">热</span>{/case}
+                  {case 新}<span class="tag tag-new">新</span>{/case}
+                  {case }{/case}
+                  {default /}<span class="tag tag-other">{$value.label}</span>
+                {/switch}
+              </div>
+              <div class="score">{$value.score}</div>
+            </a>
+            {/foreach}
+          </div>
+        </div>
+        {/if} 
+
+        {if isset($getBaiduRealtime)}
+        <div id="getBaiduRealtime" title="更新时间:{$getBaiduRealtime['updated_at']}" class="board-container">
+          <div class="board-head">
+            <img src="/static/image/baidu.ico" alt="百度" />
+            <h3>百度</h3>
+            <span>热搜榜</span>
+          </div>
+          <div class="board-content">
+            {foreach $getBaiduRealtime['list'] as $value}
+            <a title="热度：{$value.score}" class="board-item" href="{$value.url}" target="_blank">
+              <div class="order">
+                <span>{$value.rank}</span>
+              </div>
+              <div class="title">
+                <span class="word">{$value.title}</span>
+                {switch $value.label}
+                  {case 热}<span class="tag tag-hot">热</span>{/case}
+                  {case 新}<span class="tag tag-new">新</span>{/case}
+                  {case 爆}<span class="tag tag-boom">爆</span>{/case}
+                  {case }{/case}
+                  {default /}<span class="tag tag-other">{$value.label}</span>
+                {/switch}
+              </div>
+              <div class="score">{$value.score}</div>
+            </a>
+            {/foreach}
+          </div>
+        </div>
+        {/if} 
+        
+        {if isset($getUcHotRank)}
+        <div id="getUcHotRank" title="更新时间:{$getUcHotRank['updated_at']}" class="board-container">
+          <div class="board-head">
+            <img src="/static/image/uc.ico" alt="UC浏览器" />
+            <h3>UC浏览器</h3>
+            <span>热搜榜</span>
+          </div>
+          <div class="board-content">
+            {foreach $getUcHotRank['list'] as $value}
+            <a title="热度：{$value.score}" class="board-item" href="{$value.url}" target="_blank">
+              <div class="order">
+                <span>{$value.rank}</span>
+              </div>
+              <div class="title">
+                <span class="word">{$value.title}</span>
+                {switch $value.label}
+                  {case 热}<span class="tag tag-hot">热</span>{/case}
+                  {case 新}<span class="tag tag-new">新</span>{/case}
+                  {case }{/case}
+                  {default /}<span class="tag tag-other">{$value.label}</span>
+                {/switch}
+              </div>
+              <div class="score">{$value.score}</div>
+            </a>
+            {/foreach}
+          </div>
+        </div>
+        {/if} 
+      </div>
+      <footer>
+        <a href="https://beian.miit.gov.cn/#/Integrated/index" class="icp"
+          >粤ICP备2021090761-2号</a
+        >
+        <p class="copyright">
+          Copyright© 2023 Ytool.CN. All Rights Reserved.
+        </p>
+      </footer>
+    </div>
+    <script src="https://cdn.staticfile.org/echarts/4.8.0/echarts.min.js"></script>
+    <script src="/static/js/index.js"></script>
+  </body>
+</html>
