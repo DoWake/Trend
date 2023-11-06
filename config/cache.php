@@ -24,9 +24,9 @@ return [
             // 序列化机制 例如 ['serialize', 'unserialize']
             'serialize'  => [],
         ],
-        'redis'   =>  [
+        'redis2'   =>  [
             // 驱动方式
-            'type' => 'redis',
+            'type' => 'app\library\cache\driver\Redis',
             // 服务器地址
             'host' => env('redis.host', '127.0.0.1'),
             // 端口
