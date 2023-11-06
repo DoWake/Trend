@@ -10,15 +10,9 @@ class Index extends BaseController
 {
     public function index()
     {
-        $hotlist = Hotlist::where('status', 1)->select();
-        $data = [];
-        foreach ($hotlist as $value) {
-            $data[$value['action']] = [
-                'list' => json_decode($value['data'], true),
-                'updated_at' => $value['updated_at']
-            ];
-        }
-        return View::fetch('index/index', $data);
+        $data = Hotlist::where('status', 1)->order('rank', 'asc')->select()->toArray();
+        View::assign('data', $data);
+        return View::fetch('index/index');
     }
 
     public function hello($name = 'ThinkPHP6')
