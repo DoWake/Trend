@@ -35,6 +35,14 @@ class Web
       };
       $notice_worker->listen();
     };
+    // 建立WebSocket连接时
+    $web_worker->onWebSocketConnect = function (TcpConnection $connection, $request) {
+      $result = [
+        'code' => 200,
+        'msg' => '连接成功',
+      ];
+      $connection->send(json_encode($result));
+    };
     // 处理客户端发来的信息
     $web_worker->onMessage = function (TcpConnection $connection, $data) {
       try {
