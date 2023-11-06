@@ -7,6 +7,7 @@ return [
     'commands' => [
         'worker2' => 'app\command\Worker',
         'CrontabTask' => 'app\command\CrontabTask',
-        'CrontabTimer' => 'app\command\CrontabTimer'
+        'CrontabTimer' => 'app\command\CrontabTimer',
+        'PushWeb' => 'app\command\PushWeb'
     ],
 ];
