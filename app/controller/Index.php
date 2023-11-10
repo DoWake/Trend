@@ -10,8 +10,20 @@ class Index extends BaseController
 {
     public function index()
     {
-        $data = Hotlist::where('status', 1)->order('rank', 'asc')->select()->toArray();
-        View::assign('data', $data);
+        $re = Hotlist::where('status', 1)->order('rank', 'asc')->select()->toArray();
+        $hotBoardData = [];
+        foreach ($re as $value) {
+            $hotBoardData[$value['action']] = [
+                'id' => $value['action'],
+                'source' => $value['source'],
+                'title' => $value['title'],
+                'icon' => $value['icon'],
+                'data' => json_decode($value['data']),
+                'updated_at' => $value['updated_at']
+            ];
+        }
+        $data['hotBoardData'] = $hotBoardData;
+        View::assign('data', json_encode($data));
         return View::fetch('index/index');
     }
 

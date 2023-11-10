@@ -4,57 +4,54 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta content="热搜,热搜榜,热点,热搜指数,热度,实时热点,Ytool" name="Keywords">
-    <meta name="description" content="本应用提供全网多平台的热搜榜单，帮助您轻松掌握新鲜事、简讯、热点和热度趋势。">
-    <link rel="shortcut icon" href="/favicon.svg">
+    <meta
+      content="热搜,热搜榜,热点,热搜指数,热度,实时热点,Ytool"
+      name="Keywords"
+    />
+    <meta
+      name="description"
+      content="本应用提供全网多平台的热搜榜单，帮助您轻松掌握新鲜事、简讯、热点和热度趋势。"
+    />
+    <link rel="shortcut icon" href="/favicon.svg" />
     <link rel="stylesheet" href="/static/css/index.css" />
-    <title>热搜指数</title>
+    <style>
+      .board-content-enter-active,
+      .board-content-leave-active {
+        transition: all 1s;
+      }
+      .board-content-enter,
+      .board-content-leave-to {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      .board-content-move {
+        transition: transform 1s;
+      }
+    </style>
+    <title>热搜指数 - 实时变化</title>
   </head>
   <body>
     <div class="container">
       <div id="chart" class="chart">加载中</div>
       <div class="board">
-        {foreach $data as $info}
-        <div id="{$info.action}" title="更新时间:{$info.updated_at}" class="board-container">
-          <div class="board-head">
-            <img src="{$info.icon}" alt="{$info.source}" />
-            <h3>{$info.source}</h3>
-            <span>{$info.title}</span>
-          </div>
-          <div class="board-content">
-            {php}$list = json_decode($info['data'], true);{/php}
-            {foreach $list as $item}
-            <a title="热度：{$item.score}" class="board-item" href="{$item.url}" target="_blank">
-              <div class="order">
-                <span>{$item.rank}</span>
-              </div>
-              <div class="title">
-                <span class="word">{$item.title}</span>
-                {switch $item.label}
-                  {case 热}<span class="tag tag-hot">热</span>{/case}
-                  {case 新}<span class="tag tag-new">新</span>{/case}
-                  {case 爆}<span class="tag tag-boom">爆</span>{/case}
-                  {case }{/case}
-                  {default /}<span class="tag tag-other">{$item.label}</span>
-                {/switch}
-              </div>
-              <div class="score">{$item.score}</div>
-            </a>
-            {/foreach}
-          </div>
-        </div>
-        {/foreach}
+        <board-container
+          v-for="item in hotBoardData"
+          :info="item"
+          :key="item.id"
+        ></board-container>
       </div>
       <footer>
         <a href="https://beian.miit.gov.cn/#/Integrated/index" class="icp"
           >粤ICP备2021090761-2号</a
         >
-        <p class="copyright">
-          Copyright© 2023 Ytool.CN. All Rights Reserved.
-        </p>
+        <p class="copyright">Copyright© 2023 Ytool.CN. All Rights Reserved.</p>
       </footer>
     </div>
-    <script src="https://cdn.staticfile.org/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      var allData = {$data|raw};
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
     <script src="https://cdn.staticfile.org/echarts/4.8.0/echarts.min.js"></script>
     <script src="/static/js/index.js"></script>
   </body>
