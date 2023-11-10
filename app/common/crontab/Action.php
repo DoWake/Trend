@@ -48,6 +48,16 @@ class Action
         'code' => 1,
         'msg' => '执行成功'
       ];
+
+      // 推送数据
+      $push_data = [
+        'action' => $action,
+        'list' => $latest_data,
+        'updated_at' => date('Y-m-d H:i:s')
+      ];
+      $client = stream_socket_client('tcp://127.0.0.1:15551', $errno, $errmsg, 1);
+      fwrite($client, json_encode($push_data) . "\n");
+
       return $res;
     }
   }
@@ -86,6 +96,16 @@ class Action
         'code' => 1,
         'msg' => '执行成功'
       ];
+
+      // 推送数据
+      $push_data = [
+        'action' => $action,
+        'list' => $latest_data,
+        'updated_at' => date('Y-m-d H:i:s')
+      ];
+      $client = stream_socket_client('tcp://127.0.0.1:15551', $errno, $errmsg, 1);
+      fwrite($client, json_encode($push_data) . "\n");
+
       return $res;
     }
   }
@@ -124,6 +144,16 @@ class Action
         'code' => 1,
         'msg' => '执行成功'
       ];
+
+      // 推送数据
+      $push_data = [
+        'action' => $action,
+        'list' => $latest_data,
+        'updated_at' => date('Y-m-d H:i:s')
+      ];
+      $client = stream_socket_client('tcp://127.0.0.1:15551', $errno, $errmsg, 1);
+      fwrite($client, json_encode($push_data) . "\n");
+
       return $res;
     }
   }
@@ -162,6 +192,16 @@ class Action
         'code' => 1,
         'msg' => '执行成功'
       ];
+
+      // 推送数据
+      $push_data = [
+        'action' => $action,
+        'list' => $latest_data,
+        'updated_at' => date('Y-m-d H:i:s')
+      ];
+      $client = stream_socket_client('tcp://127.0.0.1:15551', $errno, $errmsg, 1);
+      fwrite($client, json_encode($push_data) . "\n");
+
       return $res;
     }
   }
