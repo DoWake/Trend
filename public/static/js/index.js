@@ -440,6 +440,14 @@ setInterval(function () {
   });
 }, 1600);
 
+// WebSocket心跳包30S
+setInterval(function () {
+  const params = {
+    act: "ping"
+  };
+  ws.send(JSON.stringify(params));
+}, 30000);
+
 window.addEventListener('resize', function () {
   chartDataCount = Math.min(Math.floor(992 / chartItemWidth), Math.max(4, Math.floor(window.innerWidth / chartItemWidth)));
   myChart.resize();
